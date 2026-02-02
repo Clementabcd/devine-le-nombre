@@ -35,11 +35,14 @@ export default function GuessTheNumber() {
 
   const initGame = () => {
     const level = levels[currentLevel];
+    const range = level.max - level.min;
     const mid = Math.floor((level.max + level.min) / 2);
+    const excludeRange = Math.min(5, Math.floor(range * 0.05)); // 5% du range ou 5 max
+    
     let num;
     do {
       num = Math.floor(Math.random() * (level.max - level.min + 1)) + level.min;
-    } while (Math.abs(num - mid) < 5 && level.max > 20);
+    } while (Math.abs(num - mid) < excludeRange && range > 20);
 
     setTargetNumber(num);
     setAttempts(0);
